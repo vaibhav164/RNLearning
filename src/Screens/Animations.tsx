@@ -1,38 +1,47 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Animated, StyleSheet, Text } from 'react-native'
+import React, { useRef, useEffect } from 'react';
+import { Animated, View, StyleSheet } from 'react-native';
 
-function Animations() {
-    const fadeAnimationRef = useRef((new Animated.Value(0))).current;
+const ParallelExample = () => {
+    const scale = useRef(new Animated.Value(1)).current;
+
     useEffect(() => {
-        Animated.timing(fadeAnimationRef, {
-            toValue: 10000000,
-            useNativeDriver: true,
-            duration: 30000
-        }).start();
-    }, [fadeAnimationRef])
+        const piece = Animated.sequence([
+            Animated.timing(scale, {
+                toValue: 1.5,
+                duration: 500,
+                useNativeDriver: true,
+            }),
+            Animated.timing(scale, {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: true,
+            }),
+        ]);
 
-    // const translateX = fadeAnimationRef.interpolate({
-    //     inputRange: [0, 100],
-    //     outputRange: [0, 400],
-    // });
+        Animated.loop(piece).start();
+    }, []);
+
     return (
-        <Animated.View style={{
-            ...styles.container, transform: [
-                // { translateX },
-                { rotate: fadeAnimationRef.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] }) }
-            ]
-        }}>
-            <Text>{"My First Animation Component"}</Text>
-        </Animated.View>
-    )
-}
+        <Animated.View
+            style={[
+                styles.circle,
+                {
+                    transform: [{ scale }],
+                },
+            ]}
+        />
+    );
+};
+
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 200,
-        height: 200,
-        backgroundColor: 'skyblue'
-    }
-})
-export default Animations
+    circle: {
+        width: 100,
+        height: 100,
+        backgroundColor: 'purple',
+        borderRadius: 50,
+        alignSelf: 'center',
+        marginTop: 100,
+    },
+});
+
+export default ParallelExample;
