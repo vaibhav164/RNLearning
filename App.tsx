@@ -1,11 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
 import React, { lazy, useState } from 'react';
-import { StyleSheet, useColorScheme, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 const HomeScreen = lazy(()=>import('./src/Screens/HomeScreen'))
 const UserScreen = lazy(()=>import('./src/Screens/UserScreen'))
 function App() {
