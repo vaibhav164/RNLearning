@@ -4,11 +4,10 @@
  *
  * @format
  */
-import React, { useState } from 'react';
+import React, { lazy, useState } from 'react';
 import { StyleSheet, useColorScheme, View } from 'react-native';
-import HomeScreen from './src/Screens/HomeScreen';
-import UserScreen from './src/Screens/UserScreen';
-
+const HomeScreen = lazy(()=>import('./src/Screens/HomeScreen'))
+const UserScreen = lazy(()=>import('./src/Screens/UserScreen'))
 function App() {
   const [state, setState] = useState(false);
 
