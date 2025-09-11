@@ -4,19 +4,15 @@
  *
  * @format
  */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, useColorScheme, View } from 'react-native';
+import HomeScreen from './src/Screens/HomeScreen';
+import UserScreen from './src/Screens/UserScreen';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [state, setState] = useState(false);
 
-  return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
-  );
+  return (state?<HomeScreen move={()=>setState(!state)}/>:<UserScreen onBack={()=>setState(!state)}/>);
 }
 
 const styles = StyleSheet.create({
